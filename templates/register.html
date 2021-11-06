@@ -1,0 +1,55 @@
+<html>
+<head>
+<title>Jupyter notebook</title>
+<script type="text/javascript">
+var register = function() {
+    var username = document.getElementById('username').value;
+    var password = document.getElementById('password').value;
+    console.log('username:' + username);
+    var xhr = new XMLHttpRequest();
+    xhr.open("POST", '/register', true);
+    xhr.setRequestHeader('Content-Type', 'application/json');
+    xhr.send(JSON.stringify({username: username, password: password}));
+    xhr.onreadystatechange = function() {
+        if (xhr.readyState === 4 && xhr.status === 200) {
+            var data = JSON.parse(this.responseText);
+            if (data.status == "okay")
+                document.getElementById('response_message').innerHTML = 'Registered';
+            else if (data.status == "error")
+                document.getElementById('response_message').innerHTML = data.errorMessage;
+        }
+    }
+}
+</script>
+</head>
+<body>
+    <h1>Register an account</h1>
+    <form onsubmit="register(); return false;">
+        <table>
+            <tr>
+                <td>
+                    <label>Username:</label>
+                </td>
+                <td>
+                    <input id="username" type="text">
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label>Password:</label>
+                </td>
+                <td>
+                    <input id="password" type="password">
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <input type="submit" value="Register">
+                </td>    
+            </tr>
+        </table>
+    </form>
+    <p id="response_message"></p>
+    <a href="/">Login</a>
+</body>
+</html>
