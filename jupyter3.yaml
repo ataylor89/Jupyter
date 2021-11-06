@@ -1,0 +1,10 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: minimal-notebook
+spec:
+  containers:
+  - name: minimal-notebook
+    image: jupyter/minimal-notebook:latest
+    ports:
+    - containerPort: 8888
